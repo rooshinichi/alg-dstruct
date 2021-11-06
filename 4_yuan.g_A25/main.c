@@ -5,14 +5,14 @@
 int main()
 {
 	FILE* input = fopen("TEXT.txt", "r");   //读取文件，返回文件的指针
-	if (input == NULL)
+	if (NULL == input)
 	{
 		perror("/nerror NO_001 ");
 		return error;
 	}
 
 	char* string = malloc(sizeof(char) * 3 * NAME_LENGTH_MAX); //创建指针来存放从文件里读取的数据
-	if (string == NULL)
+	if (NULL == string)
 	{
 		perror("/nerror NO_002 ");
 		return error;
@@ -55,7 +55,7 @@ int main()
 
 	node_t* zero = (node_t*)malloc(sizeof(node_t));     
 
-	if (zero == NULL)
+	if (NULL == zero)
 	{
 		perror("/nerror NO_006 ");
 		return -1;
@@ -65,7 +65,7 @@ int main()
 
 	head = compare_the_name (head, zero->Fullname.firstname, zero->Fullname.name, zero->Fullname.fathername);
 
-	while (head != NULL)
+	while (NULL != head)
 	{
 		printf("%s    %s    %s\n---------------------------\n", &(head->Fullname.firstname), head->Fullname.name, head->Fullname.fathername);
 		head = head->next;
