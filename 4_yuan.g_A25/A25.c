@@ -11,7 +11,7 @@ node_t* get_a_new_name_to_end_link_list(node_t* head, node_t* get_new_name)
 	if (NULL == head)
 	{
 		node_t* temp_t = (node_t*)malloc(sizeof(node_t));
-		if (temp_t == NULL)
+		if (NULL == temp_t)
 		{
 			perror("/nerror NO_005");
 			return NULL;
@@ -137,7 +137,7 @@ node_t* add_name_to_the_list(node_t* head, node_t* get_new_name)
 		}
 		else if (firstname == 0 && name < 0)
 		{
-			if (first == NULL)                           
+			if (NULL == first)                           
 			{
 				get_new_name->next = temp;
 				head = get_new_name;
@@ -149,7 +149,7 @@ node_t* add_name_to_the_list(node_t* head, node_t* get_new_name)
 		}
 		else if (firstname == 0 && name == 0 && fathername < 0)
 		{
-			if (first == NULL)                                
+			if (NULL == first)                                
 			{
 				get_new_name->next = temp;
 				head = get_new_name;
@@ -169,9 +169,9 @@ node_t* add_name_to_the_list(node_t* head, node_t* get_new_name)
 
 int delete_linked_list(node_t* head)
 {
-	if (head != NULL)
+	if (NULL != head)
 	{
-		while (head->next != NULL)
+		while (NULL != head->next)
 		{
 			node_t* temp = head;
 			head = head->next;
@@ -188,7 +188,7 @@ int delete_linked_list(node_t* head)
 
 node_t* compare_the_name (node_t* head, char* findLastname, char* findName, char* findMiddlename) 
 {
-	if (head == NULL)
+	if (NULL == head)
 	{
 		perror("/nerror NO_013 ");
 		return NULL;
