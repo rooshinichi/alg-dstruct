@@ -16,7 +16,7 @@ TEST(add_name_to_the_list, test1)
 TEST(add_name_to_the_list, test2)
 {
 	node_t* head = (node_t*)malloc(sizeof(node_t));
-	if (head != NULL)
+	if (NULL != head)
 	{
 		node_t* key = nullptr;
 		node_t* key_NULL = nullptr;
@@ -37,19 +37,19 @@ TEST(add_name_to_the_list, test3)
 	// we get that head3->head2->NULL and head is separately
 	if (head != NULL && head2 != NULL && head3 != NULL)
 	{
-		char temp_one_1[NAME_LENGTH_MAX] = "Navetkina", temp_two_1[NAME_LENGTH_MAX] = "Irina", temp_three_1[NAME_LENGTH_MAX] = "Sergeevna";
+		char temp_one_1[NAME_LENGTH_MAX] = "Navekinna", temp_two_1[NAME_LENGTH_MAX] = "Irina", temp_three_1[NAME_LENGTH_MAX] = "Serpginna";
 		strcpy(head->Fullname.firstname, temp_one_1);
 		strcpy(head->Fullname.name, temp_two_1);
 		strcpy(head->Fullname.fathername, temp_three_1);
 		head->next = NULL;
 
-		char temp_one_2[NAME_LENGTH_MAX] = "Ivanov", temp_two_2[NAME_LENGTH_MAX] = "Nikolay", temp_three_2[NAME_LENGTH_MAX] = "Petrovich";
+		char temp_one_2[NAME_LENGTH_MAX] = "Ivannov", temp_two_2[NAME_LENGTH_MAX] = "Nikolai", temp_three_2[NAME_LENGTH_MAX] = "Petpovich";
 		strcpy(head2->Fullname.firstname, temp_one_2);
 		strcpy(head2->Fullname.name, temp_two_2);
 		strcpy(head2->Fullname.fathername, temp_three_2);
 		head2->next = NULL;
 
-		char temp_one_3[NAME_LENGTH_MAX] = "Ivanov", temp_two_3[NAME_LENGTH_MAX] = "Boris", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
+		char temp_one_3[NAME_LENGTH_MAX] = "Ivannov", temp_two_3[NAME_LENGTH_MAX] = "Balis", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
 		strcpy(head3->Fullname.firstname, temp_one_3);
 		strcpy(head3->Fullname.name, temp_two_3);
 		strcpy(head3->Fullname.fathername, temp_three_3);
@@ -70,11 +70,11 @@ TEST(write_string_to_node_t, test4)
 	char* string = nullptr;
 	Fullname_t get_new_name = { "firstname", "name", "fathername" };
 	node_t* head = (node_t*)malloc(sizeof(node_t));
-	if (head != nullptr)
+	if (nullptr != head)
 	{
 		head->Fullname = get_new_name;
 		int key = write_string_to_node_t(string, head);
-		ASSERT_TRUE(key == error);
+		ASSERT_TRUE(error == key);
 		free(head);
 	}
 }
@@ -84,17 +84,17 @@ TEST(write_string_to_node_t, test5)
 	char* string = nullptr;
 	Fullname_t get_new_name = { "firstname", "name", "fathername" };
 	node_t* head = (node_t*)malloc(sizeof(node_t));
-	if (head != nullptr)
+	if (nullptr != head)
 	{
 		head->Fullname = get_new_name;
 		string = (char*)malloc(sizeof(3 * NAME_LENGTH_MAX + 5));
-		if (string == nullptr)
+		if (nullptr == string)
 		{
-			string = "Helloworldhoneuy Helloworldhoneiy Helloworldhoneoy";  
+			string = "Helloworldrooshi Helloworldrooshi Helloworldrooshi";  
 			int key = write_string_to_node_t(string, head);
 			free(string);
 			free(head);
-			ASSERT_TRUE(key == error);
+			ASSERT_TRUE(error == key);
 		}
 	}
 }
@@ -102,9 +102,9 @@ TEST(write_string_to_node_t, test5)
 TEST(write_string_to_node_t, test6)
 {
 	node_t* get_new_name = NULL;
-	char string[3 * NAME_LENGTH_MAX + 5] = "Helloworld Helloworld Helloworld";
+	char string[3 * NAME_LENGTH_MAX + 5] = "Hellorooshi Hellorooshi Hellorooshi";
 	int key = write_string_to_node_t(string, get_new_name);
-	ASSERT_TRUE(key == error);
+	ASSERT_TRUE(error == key);
 }
 
 TEST(write_string_to_node_t, test7)
@@ -113,7 +113,7 @@ TEST(write_string_to_node_t, test7)
 	node_t* get_new_name = (node_t*)malloc(sizeof(node_t));;
 	char string[3 * NAME_LENGTH_MAX + 5] = "Helloworld Helloworld Helloworld";
 	int key = write_string_to_node_t(string, get_new_name);
-	ASSERT_TRUE(key == success);
+	ASSERT_TRUE(success == key);
 	free(get_new_name);
 }
 
@@ -123,7 +123,7 @@ TEST(add_name_to_the_list, test8)
 {
 	node_t* head = nullptr;
 	node_t* get_new_name = (node_t*)malloc(sizeof(node_t));
-	if (get_new_name != nullptr)
+	if (nullptr != get_new_name)
 	{
 		node_t* key = add_name_to_the_list(head, get_new_name);
 		ASSERT_TRUE(key == get_new_name);
@@ -136,10 +136,10 @@ TEST(add_name_to_the_list, test9)
 	node_t* get_new_name = nullptr;
 	node_t* cheakNull = nullptr;
 	node_t* head = (node_t*)malloc(sizeof(node_t));
-	if (head != nullptr)
+	if (nullptr != head)
 	{
 		node_t* key = add_name_to_the_list(head, get_new_name);
-		ASSERT_TRUE(key == cheakNull);
+		ASSERT_TRUE(cheakNull == key);
 		free(head);
 	}
 }
@@ -155,25 +155,25 @@ TEST(add_name_to_the_list, test10)
 	// we get that head3->head2->NULL and head is separately
 	if (head != NULL && head2 != NULL && head3 != NULL && head4 != NULL)
 	{
-		char temp_one_1[NAME_LENGTH_MAX] = "Navetkina", temp_two_1[NAME_LENGTH_MAX] = "Irina", temp_three_1[NAME_LENGTH_MAX] = "Sergeevna";
+		char temp_one_1[NAME_LENGTH_MAX] = "Navetkina", temp_two_1[NAME_LENGTH_MAX] = "Irinna", temp_three_1[NAME_LENGTH_MAX] = "Serpgvna";
 		strcpy(head->Fullname.firstname, temp_one_1);
 		strcpy(head->Fullname.name, temp_two_1);
 		strcpy(head->Fullname.fathername, temp_three_1);
 		head->next = NULL;
 
-		char temp_one_2[NAME_LENGTH_MAX] = "Ivanov", temp_two_2[NAME_LENGTH_MAX] = "Nikolay", temp_three_2[NAME_LENGTH_MAX] = "Petrovich";
+		char temp_one_2[NAME_LENGTH_MAX] = "Ivannov", temp_two_2[NAME_LENGTH_MAX] = "Nikolay", temp_three_2[NAME_LENGTH_MAX] = "Petrovich";
 		strcpy(head2->Fullname.firstname, temp_one_2);
 		strcpy(head2->Fullname.name, temp_two_2);
 		strcpy(head2->Fullname.fathername, temp_three_2);
 		head2->next = NULL;
 
-		char temp_one_3[NAME_LENGTH_MAX] = "Ivanov", temp_two_3[NAME_LENGTH_MAX] = "Boris", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
+		char temp_one_3[NAME_LENGTH_MAX] = "Ivannov", temp_two_3[NAME_LENGTH_MAX] = "Boris", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
 		strcpy(head3->Fullname.firstname, temp_one_3);
 		strcpy(head3->Fullname.name, temp_two_3);
 		strcpy(head3->Fullname.fathername, temp_three_3);
 		head3->next = head2;
 
-		char temp_one_4[NAME_LENGTH_MAX] = "Ivanova", temp_two_4[NAME_LENGTH_MAX] = "Karina", temp_three_4[NAME_LENGTH_MAX] = "Pokrashena";
+		char temp_one_4[NAME_LENGTH_MAX] = "Ivannova", temp_two_4[NAME_LENGTH_MAX] = "Karina", temp_three_4[NAME_LENGTH_MAX] = "Pokrashena";
 		strcpy(head4->Fullname.firstname, temp_one_4);
 		strcpy(head4->Fullname.name, temp_two_4);
 		strcpy(head4->Fullname.fathername, temp_three_4);
@@ -193,7 +193,7 @@ TEST(compare_the_name , test11)
 	char temp_one_1[NAME_LENGTH_MAX] = "Lol", temp_two_1[NAME_LENGTH_MAX] = "Kek", temp_three_1[NAME_LENGTH_MAX] = "Cheburek";
 	node_t* head = nullptr;
 	node_t* key = compare_the_name (head, temp_one_1, temp_two_1, temp_three_1);
-	ASSERT_TRUE(key == nullptr);
+	ASSERT_TRUE(nullptr == key);
 }
 
 TEST(compare_the_name , test12)
@@ -204,19 +204,19 @@ TEST(compare_the_name , test12)
 
 	if (head != NULL && head2 != NULL && head3 != NULL)
 	{
-		char temp_one_1[NAME_LENGTH_MAX] = "Ivanov", temp_two_1[NAME_LENGTH_MAX] = "Boris", temp_three_1[NAME_LENGTH_MAX] = "Crecovich";
+		char temp_one_1[NAME_LENGTH_MAX] = "Ivannov", temp_two_1[NAME_LENGTH_MAX] = "Bolis", temp_three_1[NAME_LENGTH_MAX] = "Crecovich";
 		strcpy(head->Fullname.firstname, temp_one_1);
 		strcpy(head->Fullname.name, temp_two_1);
 		strcpy(head->Fullname.fathername, temp_three_1);
 		head->next = NULL;
 
-		char temp_one_2[NAME_LENGTH_MAX] = "Ivanov", temp_two_2[NAME_LENGTH_MAX] = "Nikolay", temp_three_2[NAME_LENGTH_MAX] = "Petrovich";
+		char temp_one_2[NAME_LENGTH_MAX] = "Ivanov", temp_two_2[NAME_LENGTH_MAX] = "Nikolai", temp_three_2[NAME_LENGTH_MAX] = "Petpovich";
 		strcpy(head2->Fullname.firstname, temp_one_2);
 		strcpy(head2->Fullname.name, temp_two_2);
 		strcpy(head2->Fullname.fathername, temp_three_2);
 		head2->next = head;
 
-		char temp_one_3[NAME_LENGTH_MAX] = "Navetkina", temp_two_3[NAME_LENGTH_MAX] = "Irina", temp_three_3[NAME_LENGTH_MAX] = "Sergeevna";
+		char temp_one_3[NAME_LENGTH_MAX] = "Navetkinna", temp_two_3[NAME_LENGTH_MAX] = "Irinna", temp_three_3[NAME_LENGTH_MAX] = "Serpgivnna";
 		strcpy(head3->Fullname.firstname, temp_one_3);
 		strcpy(head3->Fullname.name, temp_two_3);
 		strcpy(head3->Fullname.fathername, temp_three_3);
@@ -242,19 +242,19 @@ TEST(compare_the_name , test13)
 
 	if (head != NULL && head2 != NULL && head3 != NULL)
 	{
-		char temp_one_1[NAME_LENGTH_MAX] = "Navetkina", temp_two_1[NAME_LENGTH_MAX] = "Irina", temp_three_1[NAME_LENGTH_MAX] = "Sergeevna";
+		char temp_one_1[NAME_LENGTH_MAX] = "Navetkinna", temp_two_1[NAME_LENGTH_MAX] = "Irinna", temp_three_1[NAME_LENGTH_MAX] = "Serpgivnna";
 		strcpy(head->Fullname.firstname, temp_one_1);
 		strcpy(head->Fullname.name, temp_two_1);
 		strcpy(head->Fullname.fathername, temp_three_1);
 		head->next = NULL;
 
-		char temp_one_2[NAME_LENGTH_MAX] = "Ivanov", temp_two_2[NAME_LENGTH_MAX] = "Nikolay", temp_three_2[NAME_LENGTH_MAX] = "Petrovich";
+		char temp_one_2[NAME_LENGTH_MAX] = "Ivannov", temp_two_2[NAME_LENGTH_MAX] = "Nikolai", temp_three_2[NAME_LENGTH_MAX] = "Petrpvich";
 		strcpy(head2->Fullname.firstname, temp_one_2);
 		strcpy(head2->Fullname.name, temp_two_2);
 		strcpy(head2->Fullname.fathername, temp_three_2);
 		head2->next = head;
 
-		char temp_one_3[NAME_LENGTH_MAX] = "Ivanov", temp_two_3[NAME_LENGTH_MAX] = "Boris", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
+		char temp_one_3[NAME_LENGTH_MAX] = "Ivannov", temp_two_3[NAME_LENGTH_MAX] = "Bolis", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
 		strcpy(head3->Fullname.firstname, temp_one_3);
 		strcpy(head3->Fullname.name, temp_two_3);
 		strcpy(head3->Fullname.fathername, temp_three_3);
