@@ -135,30 +135,6 @@ node_t* add_name_to_the_list(node_t* head, node_t* get_new_name)
 			get_new_name->next = temp;
 			return head;
 		}
-		//else if (firstname == 0 && name < 0)
-		//{
-		//	if (NULL == first)                           
-		//	{
-		//		get_new_name->next = temp;
-		//		head = get_new_name;
-		//		return head;
-		//	}
-		//	first->next = get_new_name;
-		//	get_new_name->next = temp;
-		//	return head;
-		//}
-		//else if (firstname == 0 && name == 0 && fathername < 0)
-		//{
-		//	if (NULL == first)                                
-		//	{
-		//		get_new_name->next = temp;
-		//		head = get_new_name;
-		//		return head;
-		//	}
-		//	first->next = get_new_name;
-		//	get_new_name->next = temp;
-		//	return head;
-		//}
 		first = temp;                                         
 		temp = temp->next;
 	}
