@@ -123,7 +123,7 @@ node_t* add_name_to_the_list(node_t* head, node_t* get_new_name)
 		int name = strcmp(get_new_name->Fullname.name, temp->Fullname.name);
 		int fathername = strcmp(get_new_name->Fullname.fathername, temp->Fullname.fathername);
 
-		if (firstname < 0)
+	if ((firstname < 0)|| (firstname == 0 && name < 0) || (firstname == 0 && name == 0 && fathername < 0))
 		{
 			if (NULL == first)                              
 			{
@@ -135,30 +135,30 @@ node_t* add_name_to_the_list(node_t* head, node_t* get_new_name)
 			get_new_name->next = temp;
 			return head;
 		}
-		else if (firstname == 0 && name < 0)
-		{
-			if (NULL == first)                           
-			{
-				get_new_name->next = temp;
-				head = get_new_name;
-				return head;
-			}
-			first->next = get_new_name;
-			get_new_name->next = temp;
-			return head;
-		}
-		else if (firstname == 0 && name == 0 && fathername < 0)
-		{
-			if (NULL == first)                                
-			{
-				get_new_name->next = temp;
-				head = get_new_name;
-				return head;
-			}
-			first->next = get_new_name;
-			get_new_name->next = temp;
-			return head;
-		}
+		//else if (firstname == 0 && name < 0)
+		//{
+		//	if (NULL == first)                           
+		//	{
+		//		get_new_name->next = temp;
+		//		head = get_new_name;
+		//		return head;
+		//	}
+		//	first->next = get_new_name;
+		//	get_new_name->next = temp;
+		//	return head;
+		//}
+		//else if (firstname == 0 && name == 0 && fathername < 0)
+		//{
+		//	if (NULL == first)                                
+		//	{
+		//		get_new_name->next = temp;
+		//		head = get_new_name;
+		//		return head;
+		//	}
+		//	first->next = get_new_name;
+		//	get_new_name->next = temp;
+		//	return head;
+		//}
 		first = temp;                                         
 		temp = temp->next;
 	}
@@ -182,11 +182,11 @@ int delete_linked_list(node_t* head)
 	else
 	{
 		return error;
-
 	}
 }
 
-node_t* compare_the_name (node_t* head, char* findLastname, char* findName, char* findMiddlename) 
+
+node_t* compare_the_name (node_t* head, char* find_fristname, char* find_name, char* find_fathername) 
 {
 	if (NULL == head)
 	{
@@ -199,23 +199,20 @@ node_t* compare_the_name (node_t* head, char* findLastname, char* findName, char
 
 	char temp_one_1, temp_two_1, temp_three_1;
 	
-	if ((temp_one_1 = findLastname[0]) == '\0' && (temp_two_1 = findLastname[0]) == '\0' && (temp_three_1 = findLastname[0]) == '\0')
+	if ((temp_one_1 = find_fristname[0]) == '\0' && (temp_two_1 = find_fristname[0]) == '\0' && (temp_three_1 = find_fristname[0]) == '\0')
 	{
 		return head;
 	}
-
-
-	while (temp != 0)
+	while (0 != temp)
 	{
 		int match_fristname = 0;
 		int i = 0;
-		for (i, match_fristname; *(findLastname + i) != '\0'; i++)
-		{		if (findLastname[i] == *(temp->Fullname.firstname + i))
+		for (i, match_fristname; *(find_fristname + i) != '\0'; i++)
+		{		if (find_fristname[i] == *(temp->Fullname.firstname + i))
 			{
 				match_fristname++;
 			}
 	    }
-
 
 		if (match_fristname == i)
 		{
@@ -226,16 +223,14 @@ node_t* compare_the_name (node_t* head, char* findLastname, char* findName, char
 			match_fristname = 0;
 	     }
 
-
 		int match_name = 0;
-		for (i = 0, match_name; *(findName + i) != '\0'; i++)
+		for (i = 0, match_name; *(find_name + i) != '\0'; i++)
 		{
-			if (findName[i] == *(temp->Fullname.name + i))
+			if (find_name[i] == *(temp->Fullname.name + i))
 			{
 				match_name++;
 			}
 		}
-
 
 		if (match_name == i)
 		{
@@ -246,14 +241,13 @@ node_t* compare_the_name (node_t* head, char* findLastname, char* findName, char
 			match_name = 0;
 		}
 		int match_fathername = 0;
-		for (i = 0, match_fathername; *(findMiddlename + i) != '\0'; i++)
+		for (i = 0, match_fathername; *(find_fathername + i) != '\0'; i++)
 		{
-			if (findMiddlename[i] == *(temp->Fullname.fathername + i))
+			if (find_fathername[i] == *(temp->Fullname.fathername + i))
 			{
 					match_fathername++;
 		    }
 		}
-
 
 		if (match_fathername == i)
 		{
@@ -264,12 +258,10 @@ node_t* compare_the_name (node_t* head, char* findLastname, char* findName, char
 			match_name = 0;
 		}
 
-
 		if (match_name * match_fristname * match_fathername)
 		{
 			needed = get_a_new_name_to_end_link_list(needed, temp);
 		}
-
 
 			temp = temp->next;
 	}
