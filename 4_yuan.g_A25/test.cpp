@@ -4,7 +4,7 @@
 #include "gtest/gtest.h"
 #include "../pragma019/A25.h"
 #include"../pragma019/A25.c"
-TEST(add_name_to_node,test1 ) 
+/*TEST(add_name_to_node,test1 ) 
 {
 	node_t* temp = (node_t*)malloc(sizeof(node_t));
 	if (!temp) {
@@ -15,7 +15,7 @@ TEST(add_name_to_node,test1 )
 	add_name_to_node(temp, string, "Fir");
 	ASSERT_STRCASEEQ(string, temp->firstname);
 	free(temp);
-}
+}*/
 TEST(add_name_to_node, test2)
 {
 	node_t* temp = (node_t*)malloc(sizeof(node_t));
