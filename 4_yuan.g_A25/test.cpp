@@ -1,272 +1,440 @@
 #include "pch.h"
-#include "../pragma002/A25.h"
-#include "../pragma002/A25.c"
-
-TEST(add_name_to_the_list, test1)
+//#define _CRT_SECURE_NO_WARNINGS
+#pragma once
+#include "gtest/gtest.h"
+#include "../pragma019/A25.h"
+#include"../pragma019/A25.c"
+TEST(add_name_to_node,test1 ) 
 {
-	node_t* head = nullptr;
-	node_t* key = nullptr;
-	node_t* key_NULL = nullptr;
-	node_t* get_new_name = (node_t*)malloc(sizeof(node_t));
-	key = add_name_to_the_list(head, get_new_name);
-	ASSERT_TRUE(key != key_NULL);               
-	free(get_new_name);
+	node_t* temp = (node_t*)malloc(sizeof(node_t));
+	if (!temp) {
+		printf("Error allocating memory\n");
+		exit(1);
+	}
+	char string[] = { "Ivan" };
+	add_name_to_node(temp, string, "Fir");
+	ASSERT_STRCASEEQ(string, temp->firstname);
+	free(temp);
 }
-
-TEST(add_name_to_the_list, test2)
+TEST(add_name_to_node, test2)
+{
+	node_t* temp = (node_t*)malloc(sizeof(node_t));
+	if (!temp) {
+		printf("Error allocating memory\n");
+		exit(1);
+	}
+	char string[] = { "Ivanov" };
+	add_name_to_node(temp, string, "N");
+	ASSERT_STRCASEEQ(string, temp->name);
+	free(temp);
+}
+TEST(add_name_to_node, test3 )
+{
+	node_t* temp = (node_t*)malloc(sizeof(node_t));
+	if (!temp) {
+		printf("Error allocating memory\n");
+		exit(1);
+	}
+	char string[] = { "Ivanovich" };
+	add_name_to_node(temp, string, "Fa");
+	ASSERT_STRCASEEQ(string, temp->fathername);
+	free(temp);
+}
+TEST(insert_front_of_the_node, test4) 
+{
+	node_t* head_node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	if (!head_node_1 || !node_2) {
+		printf("Error allocating memory\n");
+		exit(1);
+	}
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	head_node_1->firstname = strA;
+	head_node_1->name = strB;
+	head_node_1->fathername = strC;
+	node_2->firstname = strD;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	head_node_1 = insert_front_of_the_node(&node_2, &head_node_1, head_node_1);
+	ASSERT_STRCASEEQ(head_node_1->firstname, strD);
+	ASSERT_STRCASEEQ(head_node_1->name, strE);
+	ASSERT_STRCASEEQ(head_node_1->fathername, strF);
+	ASSERT_STRCASEEQ(head_node_1->next->firstname, strA);
+	ASSERT_STRCASEEQ(head_node_1->next->name, strB);
+	ASSERT_STRCASEEQ(head_node_1->next->fathername, strC);
+	free(head_node_1->next);
+	free(head_node_1);
+}
+TEST(insert_front_of_the_node, test5 )
 {
 	node_t* head = (node_t*)malloc(sizeof(node_t));
-	if (NULL != head)
-	{
-		node_t* key = nullptr;
-		node_t* key_NULL = nullptr;
-		node_t* get_new_name = nullptr;
-		key = add_name_to_the_list(head, get_new_name);
-		ASSERT_TRUE(key == key_NULL);
-		free(head);       
+	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	if (!head || !node_1 || !node_2) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	head->next = node_1;
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	head->firstname = strA;
+	head->name = strA;
+	head->fathername = strA;
+	node_1->firstname = strA;
+	node_1->name = strB;
+	node_1->fathername = strC;
+	node_2->firstname = strD;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	head = insert_front_of_the_node(&node_2, &node_1, head);
+	node_t* p;
+	p = head;
+	head = head->next;
+	free(p);
+	ASSERT_STRCASEEQ(head->firstname, strD);
+	ASSERT_STRCASEEQ(head->name, strE);
+	ASSERT_STRCASEEQ(head->fathername, strF);
+	ASSERT_STRCASEEQ(head->next->firstname, strA);
+	ASSERT_STRCASEEQ(head->next->name, strB);
+	ASSERT_STRCASEEQ(head->next->fathername, strC);
+	free(head->next);
+	free(head);
 }
 
-TEST(add_name_to_the_list, test3)
+TEST(insert_the_position, test6 ) 
 {
-	node_t* head = (node_t*)malloc(sizeof(node_t));
-	node_t* head2 = (node_t*)malloc(sizeof(node_t));
-	node_t* head3 = (node_t*)malloc(sizeof(node_t));
-
-
-	// we get that head3->head2->NULL and head is separately
-	if (head != NULL && head2 != NULL && head3 != NULL)
-	{
-		char temp_one_1[NAME_LENGTH_MAX] = "Navekinna", temp_two_1[NAME_LENGTH_MAX] = "Irina", temp_three_1[NAME_LENGTH_MAX] = "Serpginna";
-		strcpy(head->Fullname.firstname, temp_one_1);
-		strcpy(head->Fullname.name, temp_two_1);
-		strcpy(head->Fullname.fathername, temp_three_1);
-		head->next = NULL;
-
-		char temp_one_2[NAME_LENGTH_MAX] = "Ivannov", temp_two_2[NAME_LENGTH_MAX] = "Nikolai", temp_three_2[NAME_LENGTH_MAX] = "Petpovich";
-		strcpy(head2->Fullname.firstname, temp_one_2);
-		strcpy(head2->Fullname.name, temp_two_2);
-		strcpy(head2->Fullname.fathername, temp_three_2);
-		head2->next = NULL;
-
-		char temp_one_3[NAME_LENGTH_MAX] = "Ivannov", temp_two_3[NAME_LENGTH_MAX] = "Balis", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
-		strcpy(head3->Fullname.firstname, temp_one_3);
-		strcpy(head3->Fullname.name, temp_two_3);
-		strcpy(head3->Fullname.fathername, temp_three_3);
-		head3->next = head2;
-
-		head3 = add_name_to_the_list(head3, head);
-		ASSERT_TRUE(head3->next->next == head);
-		free(head);
-		free(head2);
-		free(head3);
+	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	if (!node_1 || !node_2) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	node_1->firstname = strA;
+	node_1->name = strB;
+	node_1->fathername = strC;
+	node_2->firstname = strD;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	ASSERT_EQ(insert_the_position(node_1->firstname, node_2->firstname, &node_1, &node_2, &node_2), SUCCESS);
+	free(node_1->next);
+	free(node_1);
 }
 
-
-
-TEST(write_string_to_node_t, test4)
+TEST(insert_the_position, test7)
 {
-	char* string = nullptr;
-	Fullname_t get_new_name = { "firstname", "name", "fathername" };
-	node_t* head = (node_t*)malloc(sizeof(node_t));
-	if (nullptr != head)
-	{
-		head->Fullname = get_new_name;
-		int key = write_string_to_node_t(string, head);
-		ASSERT_TRUE(error == key);
-		free(head);
+	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	if (!node_1 || !node_2) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	node_2->next = NULL;
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	node_1->firstname = strD;
+	node_1->name = strB;
+	node_1->fathername = strC;
+	node_2->firstname = strA;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	ASSERT_EQ(insert_the_position(node_1->firstname, node_2->firstname, &node_1, &node_2, &node_2), SUCCESS_2);
+	free(node_1);
+	free(node_2);
 }
-
-TEST(write_string_to_node_t, test5)
+TEST(insert_the_position,teat8 )
 {
-	char* string = nullptr;
-	Fullname_t get_new_name = { "firstname", "name", "fathername" };
-	node_t* head = (node_t*)malloc(sizeof(node_t));
-	if (nullptr != head)
-	{
-		head->Fullname = get_new_name;
-		string = (char*)malloc(sizeof(3 * NAME_LENGTH_MAX + 5));
-		if (nullptr == string)
-		{
-			string = "Helloworldrooshi Helloworldrooshi Helloworldrooshi";  
-			int key = write_string_to_node_t(string, head);
-			free(string);
-			free(head);
-			ASSERT_TRUE(error == key);
-		}
+	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	if (!node_1 || !node_2) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	node_2->next = NULL;
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	node_1->firstname = strA;
+	node_1->name = strB;
+	node_1->fathername = strC;
+	node_2->firstname = strA;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	ASSERT_EQ(insert_the_position(node_1->firstname, node_2->firstname, &node_1, &node_2, &node_2), SUCCESS_2);
+	free(node_1);
+	free(node_2);
 }
 
-TEST(write_string_to_node_t, test6)
+TEST(insert_the_position,teat9 )
 {
-	node_t* get_new_name = NULL;
-	char string[3 * NAME_LENGTH_MAX + 5] = "Hellorooshi Hellorooshi Hellorooshi";
-	int key = write_string_to_node_t(string, get_new_name);
-	ASSERT_TRUE(error == key);
-}
-
-TEST(write_string_to_node_t, test7)
-{
-
-	node_t* get_new_name = (node_t*)malloc(sizeof(node_t));;
-	char string[3 * NAME_LENGTH_MAX + 5] = "Helloworld Helloworld Helloworld";
-	int key = write_string_to_node_t(string, get_new_name);
-	ASSERT_TRUE(success == key);
-	free(get_new_name);
-}
-
-
-
-TEST(add_name_to_the_list, test8)
-{
-	node_t* head = nullptr;
-	node_t* get_new_name = (node_t*)malloc(sizeof(node_t));
-	if (nullptr != get_new_name)
-	{
-		node_t* key = add_name_to_the_list(head, get_new_name);
-		ASSERT_TRUE(key == get_new_name);
-		free(get_new_name);
+	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	if (!node_1 || !node_2) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	node_1->firstname = strD;
+	node_1->name = strB;
+	node_1->fathername = strC;
+	node_2->firstname = strA;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	node_t* p;
+	p = node_2;
+	ASSERT_EQ(insert_the_position(node_1->firstname, node_2->firstname, &node_1, &node_2, &node_2), ERROR);
+	free(node_1);
+	free(p);
 }
-
-TEST(add_name_to_the_list, test9)
+TEST(insert_the_position, teat10) 
 {
-	node_t* get_new_name = nullptr;
-	node_t* cheakNull = nullptr;
-	node_t* head = (node_t*)malloc(sizeof(node_t));
-	if (nullptr != head)
-	{
-		node_t* key = add_name_to_the_list(head, get_new_name);
-		ASSERT_TRUE(cheakNull == key);
-		free(head);
+	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	if (!node_1 || !node_2) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	node_1->firstname = strA;
+	node_1->name = strB;
+	node_1->fathername = strC;
+	node_2->firstname = strA;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	node_t* p;
+	p = node_2;
+	ASSERT_EQ(insert_the_position(node_1->firstname, node_2->firstname, &node_1, &node_2, &node_2), ERROR);
+	free(node_1);
+	free(p);
 }
-
-TEST(add_name_to_the_list, test10)
+TEST(insert_the_position, teat11) 
 {
-	node_t* head = (node_t*)malloc(sizeof(node_t));
-	node_t* head2 = (node_t*)malloc(sizeof(node_t));
-	node_t* head3 = (node_t*)malloc(sizeof(node_t));
-	node_t* head4 = (node_t*)malloc(sizeof(node_t));
-
-
-	// we get that head3->head2->NULL and head is separately
-	if (head != NULL && head2 != NULL && head3 != NULL && head4 != NULL)
-	{
-		char temp_one_1[NAME_LENGTH_MAX] = "Navetkina", temp_two_1[NAME_LENGTH_MAX] = "Irinna", temp_three_1[NAME_LENGTH_MAX] = "Serpgvna";
-		strcpy(head->Fullname.firstname, temp_one_1);
-		strcpy(head->Fullname.name, temp_two_1);
-		strcpy(head->Fullname.fathername, temp_three_1);
-		head->next = NULL;
-
-		char temp_one_2[NAME_LENGTH_MAX] = "Ivannov", temp_two_2[NAME_LENGTH_MAX] = "Nikolay", temp_three_2[NAME_LENGTH_MAX] = "Petrovich";
-		strcpy(head2->Fullname.firstname, temp_one_2);
-		strcpy(head2->Fullname.name, temp_two_2);
-		strcpy(head2->Fullname.fathername, temp_three_2);
-		head2->next = NULL;
-
-		char temp_one_3[NAME_LENGTH_MAX] = "Ivannov", temp_two_3[NAME_LENGTH_MAX] = "Boris", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
-		strcpy(head3->Fullname.firstname, temp_one_3);
-		strcpy(head3->Fullname.name, temp_two_3);
-		strcpy(head3->Fullname.fathername, temp_three_3);
-		head3->next = head2;
-
-		char temp_one_4[NAME_LENGTH_MAX] = "Ivannova", temp_two_4[NAME_LENGTH_MAX] = "Karina", temp_three_4[NAME_LENGTH_MAX] = "Pokrashena";
-		strcpy(head4->Fullname.firstname, temp_one_4);
-		strcpy(head4->Fullname.name, temp_two_4);
-		strcpy(head4->Fullname.fathername, temp_three_4);
-		head4->next = head2;
-		node_t* key = add_name_to_the_list(head3, head4);
-		ASSERT_TRUE(key->next->next == head4);
-		free(head);
-		free(head2);
-		free(head3);
-		free(head4);
+	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2_next = (node_t*)malloc(sizeof(node_t));
+	if (!node_1 || !node_2 || !node_2_next) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	node_2->next = node_2_next;
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	char strH[] = { "H" };
+	char strI[] = { "I" };
+	char strJ[] = { "J" };
+	node_1->firstname = strD;
+	node_1->name = strB;
+	node_1->fathername = strC;
+	node_2->firstname = strA;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	node_2_next->firstname = strH;
+	node_2_next->name = strI;
+	node_2_next->fathername = strJ;
+	node_t* tmp1;
+	node_t* tmp2;
+	node_t* tmp3;
+	tmp1 = node_1;
+	tmp2 = node_2;
+	tmp3 = node_2_next;
+	insert_the_position(node_1->firstname, node_2->firstname, &node_1, &node_2, &node_2);
+	ASSERT_STRCASEEQ(node_2->firstname, strH);
+	ASSERT_STRCASEEQ(node_2->name, strI);
+	ASSERT_STRCASEEQ(node_2->fathername, strJ);
+	free(tmp1);
+	free(tmp2);
+	free(tmp3);
 }
-
-
-TEST(compare_the_name , test11)
+TEST(insert_the_position,teat12) 
 {
-	char temp_one_1[NAME_LENGTH_MAX] = "Lol", temp_two_1[NAME_LENGTH_MAX] = "Kek", temp_three_1[NAME_LENGTH_MAX] = "Cheburek";
-	node_t* head = nullptr;
-	node_t* key = compare_the_name (head, temp_one_1, temp_two_1, temp_three_1);
-	ASSERT_TRUE(nullptr == key);
-}
-
-TEST(compare_the_name , test12)
-{
-	node_t* head = (node_t*)malloc(sizeof(node_t));
-	node_t* head2 = (node_t*)malloc(sizeof(node_t));
-	node_t* head3 = (node_t*)malloc(sizeof(node_t));
-
-	if (head != NULL && head2 != NULL && head3 != NULL)
-	{
-		char temp_one_1[NAME_LENGTH_MAX] = "Ivannov", temp_two_1[NAME_LENGTH_MAX] = "Bolis", temp_three_1[NAME_LENGTH_MAX] = "Crecovich";
-		strcpy(head->Fullname.firstname, temp_one_1);
-		strcpy(head->Fullname.name, temp_two_1);
-		strcpy(head->Fullname.fathername, temp_three_1);
-		head->next = NULL;
-
-		char temp_one_2[NAME_LENGTH_MAX] = "Ivanov", temp_two_2[NAME_LENGTH_MAX] = "Nikolai", temp_three_2[NAME_LENGTH_MAX] = "Petpovich";
-		strcpy(head2->Fullname.firstname, temp_one_2);
-		strcpy(head2->Fullname.name, temp_two_2);
-		strcpy(head2->Fullname.fathername, temp_three_2);
-		head2->next = head;
-
-		char temp_one_3[NAME_LENGTH_MAX] = "Navetkinna", temp_two_3[NAME_LENGTH_MAX] = "Irinna", temp_three_3[NAME_LENGTH_MAX] = "Serpgivnna";
-		strcpy(head3->Fullname.firstname, temp_one_3);
-		strcpy(head3->Fullname.name, temp_two_3);
-		strcpy(head3->Fullname.fathername, temp_three_3);
-		head3->next = head2;
-
-		char temp_one_4[NAME_LENGTH_MAX] = "", temp_two_4[NAME_LENGTH_MAX] = "", temp_three_4[NAME_LENGTH_MAX] = "";
-
-		node_t* key = compare_the_name (head3, temp_one_4, temp_two_4, temp_three_4);
-		EXPECT_TRUE(key == head3);
-		EXPECT_TRUE(key->next == head2);
-		EXPECT_TRUE(key->next->next == head);
-		free(head);
-		free(head2);
-		free(head3);
+	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
+	node_t* node_2_next = (node_t*)malloc(sizeof(node_t));
+	if (!node_1 || !node_2 || !node_2_next) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	node_2->next = node_2_next;
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	char strH[] = { "H" };
+	char strI[] = { "I" };
+	char strJ[] = { "J" };
+	node_1->firstname = strD;
+	node_1->name = strB;
+	node_1->fathername = strC;
+	node_2->firstname = strD;
+	node_2->name = strE;
+	node_2->fathername = strF;
+	node_2_next->firstname = strH;
+	node_2_next->name = strI;
+	node_2_next->fathername = strJ;
+	node_t* tmp1;
+	node_t* tmp2;
+	node_t* tmp3;
+	tmp1 = node_1;
+	tmp2 = node_2;
+	tmp3 = node_2_next;
+	insert_the_position(node_1->firstname, node_2->firstname, &node_1, &node_2, &node_2);
+	ASSERT_STRCASEEQ(node_2->firstname, strH);
+	ASSERT_STRCASEEQ(node_2->name, strI);
+	ASSERT_STRCASEEQ(node_2->fathername, strJ);
+	free(tmp1);
+	free(tmp2);
+	free(tmp3);
 }
-
-TEST(compare_the_name , test13)
+TEST(sortNode, test13)
 {
-	node_t* head = (node_t*)malloc(sizeof(node_t));
-	node_t* head2 = (node_t*)malloc(sizeof(node_t));
-	node_t* head3 = (node_t*)malloc(sizeof(node_t));
-
-	if (head != NULL && head2 != NULL && head3 != NULL)
-	{
-		char temp_one_1[NAME_LENGTH_MAX] = "Navetkinna", temp_two_1[NAME_LENGTH_MAX] = "Irinna", temp_three_1[NAME_LENGTH_MAX] = "Serpgivnna";
-		strcpy(head->Fullname.firstname, temp_one_1);
-		strcpy(head->Fullname.name, temp_two_1);
-		strcpy(head->Fullname.fathername, temp_three_1);
-		head->next = NULL;
-
-		char temp_one_2[NAME_LENGTH_MAX] = "Ivannov", temp_two_2[NAME_LENGTH_MAX] = "Nikolai", temp_three_2[NAME_LENGTH_MAX] = "Petrpvich";
-		strcpy(head2->Fullname.firstname, temp_one_2);
-		strcpy(head2->Fullname.name, temp_two_2);
-		strcpy(head2->Fullname.fathername, temp_three_2);
-		head2->next = head;
-
-		char temp_one_3[NAME_LENGTH_MAX] = "Ivannov", temp_two_3[NAME_LENGTH_MAX] = "Bolis", temp_three_3[NAME_LENGTH_MAX] = "Crecovich";
-		strcpy(head3->Fullname.firstname, temp_one_3);
-		strcpy(head3->Fullname.name, temp_two_3);
-		strcpy(head3->Fullname.fathername, temp_three_3);
-		head3->next = head2;
-
-		char temp_one_4[NAME_LENGTH_MAX] = "Iva", temp_two_4[NAME_LENGTH_MAX] = "", temp_three_4[NAME_LENGTH_MAX] = "";
-		node_t* key = compare_the_name (head3, temp_one_4, temp_two_4, temp_three_4);
-
-		ASSERT_FALSE(strcmp(key->Fullname.firstname, head3->Fullname.firstname));
-		ASSERT_FALSE(strcmp(key->next->Fullname.firstname, head2->Fullname.firstname));
-		free(head);
-		free(head2);
-		free(head3);
+	node_t* zero = (node_t*)malloc(sizeof(node_t));
+	node_t* node = (node_t*)malloc(sizeof(node_t));
+	if (!zero || !node) {
+		printf("Error allocating memory\n");
+		exit(1);
 	}
+	zero->next = NULL;
+	char firstname[] = { "A" };
+	char name[] = { "B" };
+	char fathername[] = { "C" };
+	zero->firstname = firstname;
+	zero->name = name;
+	zero->fathername = fathername;
+	node->firstname = firstname;
+	node->name = name;
+	node->fathername = fathername;
+	zero = sortNode(zero, node);
+	ASSERT_STRCASEEQ(zero->firstname, firstname);
+	ASSERT_STRCASEEQ(zero->name, name);
+	ASSERT_STRCASEEQ(zero->fathername, fathername);
+	ASSERT_STRCASEEQ(zero->next->firstname, firstname);
+	ASSERT_STRCASEEQ(zero->next->name, name);
+	ASSERT_STRCASEEQ(zero->next->fathername, fathername);
+	free(zero);
+	free(node);
+}
+TEST(sortNode,test14)
+{
+	node_t* zero = (node_t*)malloc(sizeof(node_t));
+	node_t* node = (node_t*)malloc(sizeof(node_t));
+	if (!zero || !node) {
+		printf("Error allocating memory\n");
+		exit(1);
+	}
+	zero->next = NULL;
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	char strF[] = { "F" };
+	node->firstname = strA;
+	node->name = strB;
+	node->fathername = strC;
+	zero->firstname = strD;
+	zero->name = strE;
+	zero->fathername = strF;
+	zero = sortNode(zero, node);
+	ASSERT_STRCASEEQ(zero->firstname, strA);
+	ASSERT_STRCASEEQ(zero->name, strB);
+	ASSERT_STRCASEEQ(zero->fathername, strC);
+	ASSERT_STRCASEEQ(zero->next->firstname, strD);
+	ASSERT_STRCASEEQ(zero->next->name, strE);
+	ASSERT_STRCASEEQ(zero->next->fathername, strF);
+	free(zero->next);
+	free(zero);
+}
+TEST(sortNode, test15) 
+{
+	node_t* zero = (node_t*)malloc(sizeof(node_t));
+	node_t* node = (node_t*)malloc(sizeof(node_t));
+	if (!zero || !node) {
+		printf("Error allocating memory\n");
+		exit(1);
+	}
+	zero->next = NULL;
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	char strE[] = { "E" };
+	node->firstname = strA;
+	node->name = strB;
+	node->fathername = strC;
+	zero->firstname = strD;
+	zero->name = strB;
+	zero->fathername = strE;
+
+	zero = sortNode(zero, node);
+	ASSERT_STRCASEEQ(zero->firstname, strA);
+	ASSERT_STRCASEEQ(zero->name, strB);
+	ASSERT_STRCASEEQ(zero->fathername, strC);
+	ASSERT_STRCASEEQ(zero->next->firstname, strD);
+	ASSERT_STRCASEEQ(zero->next->name, strB);
+	ASSERT_STRCASEEQ(zero->next->fathername, strE);
+	free(zero->next);
+	free(zero);
+}
+TEST(sortNode, test16) 
+{
+	node_t* zero = (node_t*)malloc(sizeof(node_t));
+	node_t* node = (node_t*)malloc(sizeof(node_t));
+	if (!zero || !node) {
+		printf("Error allocating memory\n");
+		exit(1);
+	}
+	zero->next = NULL;
+	char strA[] = { "A" };
+	char strB[] = { "B" };
+	char strC[] = { "C" };
+	char strD[] = { "D" };
+	node->firstname = strA;
+	node->name = strB;
+	node->fathername = strC;
+	zero->firstname = strA;
+	zero->name = strB;
+	zero->fathername = strD;
+	zero = sortNode(zero, node);
+	ASSERT_STRCASEEQ(zero->firstname, strA);
+	ASSERT_STRCASEEQ(zero->name, strB);
+	ASSERT_STRCASEEQ(zero->fathername, strC);
+	ASSERT_STRCASEEQ(zero->next->firstname, strA);
+	ASSERT_STRCASEEQ(zero->next->name, strB);
+	ASSERT_STRCASEEQ(zero->next->fathername, strD);
+	free(zero->next);
+	free(zero);
 }
