@@ -1,43 +1,25 @@
-﻿#pragma once
-
-#ifdef __cplusplus
-extern "C" {
-#endif // !__cplusplus
-
-
+#pragma once
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <malloc.h>
-#define NAME_LENGTH_MAX 15
-#define no_match 0
-#define match 1
-#define error -1
-#define empty_element 2
-#define success 1
-#define add_to_end 2
-#pragma warning(disable: 4996)
+#include<stdlib.h>
+#include<string.h>
+#define MAX_NAME_LENGHT 50
+#define SUCCESS 1 
+#define SUCCESS_2 2
+#define ERROR 0
 
-	typedef struct {                                           
-		char firstname[NAME_LENGTH_MAX], name[NAME_LENGTH_MAX], fathername[NAME_LENGTH_MAX];
-	} Fullname_t;
+typedef struct node 
+{
+    char* firstname;
+    char* name;
+    char* fathername;
+    struct node* next;
+}node_t;
 
-	typedef struct Node                                    
-	{
-		Fullname_t Fullname;
-		struct Node* next;
-	} node_t;
-
-	node_t* get_a_new_name_to_end_link_list(node_t* head, node_t* get_new_name);
-
-	int write_string_to_node_t(char* string, node_t* get_new_name);
-
-	node_t* add_name_to_the_list(node_t* head, node_t* get_new_name);
-
-	int delete_linked_list(node_t* head);
-
-	node_t* compare_the_name (node_t* head, char* findLastname, char* findName, char* findMiddlename);
-
-#ifdef __cplusplus
-}
-#endif 
+node_t* create_new_node_t();
+void print_node(node_t* node);
+void print_list(node_t* zero);
+void add_name_to_node(node_t* node, char* name_part, const char* key_word);
+int insert_the_position(char* node_name, char* nodeInListName, node_t** node, node_t** node_in_list, node_t** head);
+node_t* insert_front_of_the_node(node_t** node, node_t** node_in_list, node_t* head);
+node_t* sortNode(node_t* zero, node_t* node);
+void compare_the_name(node_t* zero);
