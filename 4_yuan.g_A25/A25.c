@@ -1,246 +1,228 @@
-﻿//#include "pch.h"
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <malloc.h>
-#include "A25.h"
-
-
-node_t* get_a_new_name_to_end_link_list(node_t* head, node_t* get_new_name)      
+#include<stdlib.h>
+#include<string.h>
+#include"A25.h"
+node_t* create_new_node_t() //创造一个新链表
+{  
+    node_t* temp = (node_t*)malloc(sizeof(node_t));
+    if (!temp) 
+    {
+        perror("/nerror NO_003 ");
+        exit(1);
+    }
+    temp->next = NULL;
+    return temp;
+}
+void print_node(node_t* node) //打印链表的一节
+{  
+    if (node != NULL) 
+    {
+        printf("%s ", node->name);
+        printf("%s ", node->firstname);
+        printf("%s\n", node->fathername);
+    }
+}
+void print_list(node_t* zero)  //打印整个链表
+{ 
+    while (zero != NULL) 
+    {
+        print_node(zero);
+        zero = zero->next;
+    }
+}
+void add_name_to_node(node_t* node, char* name_part, const char* key_word)  // Fir--firstname, N--name, Fa--farhername  往链表一节里面放入名字
 {
-	if (NULL == head)
-	{
-		node_t* temp_t = (node_t*)malloc(sizeof(node_t));
-		if (NULL == temp_t)
-		{
-			perror("/nerror NO_005");
-			return NULL;
-		}
-		temp_t->next = NULL;
-		temp_t->Fullname = get_new_name->Fullname;
-		head = temp_t;
-		return head;
-	}
+    if ((key_word != "Fir") && (key_word != "N") && (key_word != "Fa")) 
+    {
+        perror("/nerror NO_004 ");
+        exit(1);
+    }
+    if (!node) 
+    {
+        perror("/nerror NO_005 ");
+        exit(1);
+    }
+    if (key_word == "Fir") 
+    {
+        node->firstname = (char*)malloc(strlen(name_part) + 1);
+        if (!node->firstname) 
+        {
+            perror("/nerror NO_006 ");
+            exit(1);
+        }
+        strcpy(node->firstname, name_part);
+    }
+    if (key_word == "N") 
+    {
+        node->name = (char*)malloc(strlen(name_part) + 1);
+        if (!node->name) {
+            perror("/nerror NO_007 ");
+            exit(1);
+        }
+        strcpy(node->name, name_part);
+    }
+    if (key_word == "Fa") 
+    {
+        node->fathername = (char*)malloc(strlen(name_part) + 1);
+        if (!node->fathername) 
+        {
+            perror("/nerror NO_008 ");
+            exit(1);
+        }
+        strcpy(node->fathername, name_part);
+    }
+}
+node_t* insert_front_of_the_node(node_t** node, node_t** node_in_list, node_t* head)   //
+{ 
+    if (!node || !node_in_list || !head) 
+    {
+        perror("/nerror NO_009 ");
+        exit(1);
+    }
+    node_t* temp;
+    temp = head;
+    if (*node_in_list == head) 
+    {
+        (*node)->next = head;
+        head = *(node);
+        return head;
+    }
+    else 
+    {
+        while (temp->next != *(node_in_list)) 
+        {
+            temp = temp->next;
+        }
+        (*node)->next = temp->next;
+        temp->next = *node;
+    }
+    return head;
+}
+int insert_the_position(char* node_name, char* nodeInListName, node_t** node, node_t** node_in_list, node_t** head) 
+{
+    if (!node || !node_in_list || !head) 
+    {
+        perror("/nerror NO_010 ");
+        exit(1);
+    }
+    if (strcmp(node_name, nodeInListName) < 0) 
+    {
+        *head = insert_front_of_the_node(node, node_in_list, *head);
+        return SUCCESS;//position was found
+    }
+    else 
+    {
+        if ((*node_in_list)->next == NULL)
+        {
+            (*node_in_list)->next = (*node);
+            return SUCCESS_2;//position was found
+        }else 
+        {
+            (*node_in_list) = (*node_in_list)->next;
+            return ERROR;//position was not found
+        }
+    }
+}
+node_t* sortNode(node_t* zero, node_t* node) 
+{
+    if (!zero || !node) 
+    {
+        perror("/nerror NO_011 ");
+        exit(1);
+    }
+    int temp1,temp2,temp3,key;  //temp1--firstname  //temp2--name  //temp3--fathername 
+    node_t* head;
+    head = zero;
+    while (1) 
+    {
+        temp1 = strcmp(node->firstname, zero->firstname);
+        temp2 = strcmp(node->name, zero->name);
+        temp3 = strcmp(node->fathername, zero->fathername);
+        if ((temp1 == 0) && (temp2 == 0) && (temp3 == 0)) 
+        {
+            node->next = zero->next;
+            zero->next = node;
+            break;
+        }
 
-	if (NULL == get_new_name)
-		return NULL;
-
-	node_t* temp = head;
-	while (NULL != temp->next)
-		temp = temp->next;
-
-	node_t* temp_t = get_new_name;
-	temp_t->Fullname = get_new_name->Fullname;
-	temp->next = temp_t;
-	temp_t->next = NULL;
-	return head;
+        if ((temp1 == 0) && (temp2 == 0)) 
+        {
+            key = insert_the_position(node->fathername, zero->fathername, &node, &zero, &head);
+            if (key == SUCCESS || key == SUCCESS_2) 
+            {
+                break;
+            }
+            else 
+            {
+                continue;
+            }
+        }
+        if (temp2 == 0) 
+        {
+            key = insert_the_position(node->firstname, zero->firstname, &node, &zero, &head);
+            if (key == SUCCESS || key == SUCCESS_2) 
+            {
+                break;
+            }
+            else 
+            {
+                continue;
+            }
+        }
+        key = insert_the_position(node->name, zero->name, &node, &zero, &head);
+        if (key == SUCCESS || key == SUCCESS_2) 
+        {
+            break;
+        }
+        else 
+        {
+            continue;
+        }
+    }
+    return head;
 }
 
-int write_string_to_node_t(char* string, node_t* get_new_name)          
+
+
+
+void compare_the_name(node_t* zero) 
 {
-	if (NULL == string)
+    if (!zero) 
+    {
+        perror("/nerror NO_012 ");
+        exit(1);
+    }
+    char name[MAX_NAME_LENGHT],firstname[MAX_NAME_LENGHT],fathername[MAX_NAME_LENGHT];
+    gets_s(name, MAX_NAME_LENGHT);
+    gets_s(firstname, MAX_NAME_LENGHT);
+    gets_s(fathername, MAX_NAME_LENGHT);
+    int temp1, temp2, temp3;  //temp1--firstname  //temp2--name  //temp3--fathername 
+    while (zero != NULL) {
+        temp1 = strncmp(firstname, zero->firstname, strlen(firstname));
+        temp2 = strncmp(name, zero->name, strlen(name));
+        temp3 = strncmp(fathername, zero->fathername, strlen(fathername));
+        if ((temp2 == 0) && (temp1 == 0) && (temp3 == 0)) 
 	{
-		perror("/nerror NO_007 ");
-		return error;
-	}
-	if (NULL == get_new_name)
-	{
-		perror("/nerror NO_008 ");
-		return error;
-	}
+            print_node(zero);
+        }
+        zero = zero->next;
+    }
 
-	int i = 0, j = 0, k = 0;
-	char firstname[NAME_LENGTH_MAX], name[NAME_LENGTH_MAX], fathername[NAME_LENGTH_MAX];
-	char temp;
-
-	while ((temp = string[i]) != ' ')                          
-	{
-		if (i > NAME_LENGTH_MAX)
-		{
-			perror("/nerror NO_009 ");
-			return error;
-		}
-		firstname[i++] = temp;
-	}
-	firstname[i++] = '\0';
-                                                   
-
-	while ((temp = string[i]) != ' ')
-	{
-		if (k > NAME_LENGTH_MAX)
-		{
-			perror("/nerror NO_010 ");
-			return error;
-		}
-		name[k++] = temp;
-		i++;
-	}
-	name[k] = '\0';
-	i++;
-
-	while ((temp = string[i]) != '\n' && (temp = string[i]) != '\0')
-	{
-		if (j > NAME_LENGTH_MAX)
-		{
-			perror("/nerror NO_011 ");
-			return error;
-		}
-		fathername[j++] = temp;
-		i++;
-	}
-	if (j > 0 && fathername[j - 1] == '\n')
-		fathername[j - 1] = '\0';
-	else
-		fathername[j] = '\0';
-
-	strcpy(get_new_name->Fullname.firstname, firstname);            
-	strcpy(get_new_name->Fullname.name, name);
-	strcpy(get_new_name->Fullname.fathername, fathername);
-
-	return success;
-}
-
-node_t* add_name_to_the_list(node_t* head, node_t* get_new_name)           
-{
-	if (NULL == get_new_name)
-	{
-		perror("/nerror NO_012 ");
-		return NULL;
-	}
-
-	node_t* temp = head;
-	if (NULL == temp)                                 
-	{
-		get_new_name->next = NULL;
-		head = get_new_name;
-		return head;
-	}
-
-	node_t* first = NULL;
-	while (NULL != temp)
-	{
-		int firstname = strcmp(get_new_name->Fullname.firstname, temp->Fullname.firstname);
-		int name = strcmp(get_new_name->Fullname.name, temp->Fullname.name);
-		int fathername = strcmp(get_new_name->Fullname.fathername, temp->Fullname.fathername);
-
-	if ((firstname < 0)|| (firstname == 0 && name < 0) || (firstname == 0 && name == 0 && fathername < 0))
-		{
-			if (NULL == first)                              
-			{
-				get_new_name->next = temp;
-				head = get_new_name;
-				return head;
-			}
-			first->next = get_new_name;
-			get_new_name->next = temp;
-			return head;
-		}
-		first = temp;                                         
-		temp = temp->next;
-	}
-	first->next = get_new_name;                             
-	get_new_name->next = NULL;
-	return head;
-}
-
-int delete_linked_list(node_t* head)
-{
-	if (NULL != head)
-	{
-		while (NULL != head->next)
-		{
-			node_t* temp = head;
-			head = head->next;
-			free(temp);
-		}
-		return success;
-	}
-	else
-	{
-		return error;
-	}
 }
 
 
-node_t* compare_the_name (node_t* head, char* find_fristname, char* find_name, char* find_fathername) 
+void delete_list(node_t* head) 
 {
-	if (NULL == head)
-	{
-		perror("/nerror NO_013 ");
-		return NULL;
-	}
-	
-	node_t* temp = head;
-	node_t* needed = NULL;
-
-	char temp_one_1, temp_two_1, temp_three_1;
-	
-	if ((temp_one_1 = find_fristname[0]) == '\0' && (temp_two_1 = find_fristname[0]) == '\0' && (temp_three_1 = find_fristname[0]) == '\0')
-	{
-		return head;
-	}
-	while (0 != temp)
-	{
-		int match_fristname = 0;
-		int i = 0;
-		for (i, match_fristname; *(find_fristname + i) != '\0'; i++)
-		{		if (find_fristname[i] == *(temp->Fullname.firstname + i))
-			{
-				match_fristname++;
-			}
-	    }
-
-		if (match_fristname == i)
-		{
-			match_fristname = 1;
-	    }
-		else
-		{
-			match_fristname = 0;
-	     }
-
-		int match_name = 0;
-		for (i = 0, match_name; *(find_name + i) != '\0'; i++)
-		{
-			if (find_name[i] == *(temp->Fullname.name + i))
-			{
-				match_name++;
-			}
-		}
-
-		if (match_name == i)
-		{
-			match_name = 1;
-		}
-		else
-		{
-			match_name = 0;
-		}
-		int match_fathername = 0;
-		for (i = 0, match_fathername; *(find_fathername + i) != '\0'; i++)
-		{
-			if (find_fathername[i] == *(temp->Fullname.fathername + i))
-			{
-					match_fathername++;
-		    }
-		}
-
-		if (match_fathername == i)
-		{
-			match_fathername = 1;
-		}  
-		else
-		{
-			match_name = 0;
-		}
-
-		if (match_name * match_fristname * match_fathername)
-		{
-			needed = get_a_new_name_to_end_link_list(needed, temp);
-		}
-
-			temp = temp->next;
-	}
-	head = needed;
-	return head;
+    while (head != NULL) 
+    {
+        free(head->firstname);
+        free(head->name);
+        free(head->fathername);
+        node_t* p;
+        p = head;
+        head = head->next;
+        free(p);
+    }
 }
+
