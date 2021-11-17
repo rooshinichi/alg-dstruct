@@ -4,7 +4,8 @@
 #include "gtest/gtest.h"
 #include "../pragma019/A25.h"
 #include"../pragma019/A25.c"
-/*TEST(add_name_to_node,test1 ) 
+
+TEST(add_name_to_node1,test1 ) //adding new data in firstname
 {
 	node_t* temp = (node_t*)malloc(sizeof(node_t));
 	if (!temp) {
@@ -12,11 +13,12 @@
 		exit(1);
 	}
 	char string[] = { "Ivan" };
-	add_name_to_node(temp, string, "Fir");
+	add_name_to_node1(temp, string);
 	ASSERT_STRCASEEQ(string, temp->firstname);
 	free(temp);
-}*/
-TEST(add_name_to_node, test2)
+}
+
+TEST(add_name_to_node2, test2) //adding new data in name
 {
 	node_t* temp = (node_t*)malloc(sizeof(node_t));
 	if (!temp) {
@@ -24,11 +26,11 @@ TEST(add_name_to_node, test2)
 		exit(1);
 	}
 	char string[] = { "Ivanov" };
-	add_name_to_node(temp, string, "N");
+	add_name_to_node2(temp, string);
 	ASSERT_STRCASEEQ(string, temp->name);
 	free(temp);
 }
-TEST(add_name_to_node, test3 )
+TEST(add_name_to_node3, test3 ) //adding new data in fathername
 {
 	node_t* temp = (node_t*)malloc(sizeof(node_t));
 	if (!temp) {
@@ -36,11 +38,11 @@ TEST(add_name_to_node, test3 )
 		exit(1);
 	}
 	char string[] = { "Ivanovich" };
-	add_name_to_node(temp, string, "Fa");
+	add_name_to_node3(temp, string);
 	ASSERT_STRCASEEQ(string, temp->fathername);
 	free(temp);
 }
-TEST(insert_front_of_the_node, test4) 
+TEST(insert_front_of_the_node, test4) //check that node_2 is inserted in front of the head
 {
 	node_t* head_node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -70,7 +72,7 @@ TEST(insert_front_of_the_node, test4)
 	free(head_node_1->next);
 	free(head_node_1);
 }
-TEST(insert_front_of_the_node, test5 )
+TEST(insert_front_of_the_node, test5 ) //check that node_2 is inserted in front of the node_1 which is not the head
 {
 	node_t* head = (node_t*)malloc(sizeof(node_t));
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
@@ -110,7 +112,7 @@ TEST(insert_front_of_the_node, test5 )
 	free(head);
 }
 
-TEST(insert_the_position, test6 ) 
+TEST(insert_the_position, test6 ) //check that SUCCESS is returned if node_name is less than node_in_list_name
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -135,7 +137,7 @@ TEST(insert_the_position, test6 )
 	free(node_1);
 }
 
-TEST(insert_the_position, test7)
+TEST(insert_the_position, test7) //checking_that_ANOTHER_POS_WAS_FOUND_is_returned_if_nodeName_is_bigger_than_nodeInListName_and_nodeInList_next_is_NULL
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -160,7 +162,7 @@ TEST(insert_the_position, test7)
 	free(node_1);
 	free(node_2);
 }
-TEST(insert_the_position,teat8 )
+TEST(insert_the_position,teat8 ) //checking_that_ANOTHER_POS_WAS_FOUND_is_returned_if_nodeName_is_equal_to_nodeInListName_and_nodeInList_next_is_NULL
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -185,7 +187,7 @@ TEST(insert_the_position,teat8 )
 	free(node_2);
 }
 
-TEST(insert_the_position,teat9 )
+TEST(insert_the_position,teat9 ) //checking_that_POS_WAS_NOT_FOUND_is_returned_if_nodeName_is_bigger_than_nodeInListName_and_nodeInList_next_is_not_NULL
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -211,7 +213,7 @@ TEST(insert_the_position,teat9 )
 	free(node_1);
 	free(p);
 }
-TEST(insert_the_position, teat10) 
+TEST(insert_the_position, teat10) //checking_that_POS_WAS_NOT_FOUND_is_returned_if_nodeName_is_equal_to_nodeInListName_and_nodeInList_next_is_not_NULL
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -236,7 +238,7 @@ TEST(insert_the_position, teat10)
 	free(node_1);
 	free(p);
 }
-TEST(insert_the_position, teat11) 
+TEST(insert_the_position, teat11) //checking_that_nodeInList_points_to_next_node_if_nodeName_is_bigger_than_nodeInListName_and_nodeInList_next_is_not_NULL
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -278,7 +280,7 @@ TEST(insert_the_position, teat11)
 	free(tmp2);
 	free(tmp3);
 }
-TEST(insert_the_position,teat12) 
+TEST(insert_the_position,teat12) // checking_that_nodeInList_points_to_next_node_if_nodeName_is_equal_to_nodeInListName_and_nodeInList_next_is_not_NULL
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -319,7 +321,7 @@ TEST(insert_the_position,teat12)
 	free(tmp2);
 	free(tmp3);
 }
-TEST(sortNode, test13)
+TEST(sort_node, test13) //checking_node_addition_if_data_root_is_equal_to_data_node
 {
 	node_t* zero = (node_t*)malloc(sizeof(node_t));
 	node_t* node = (node_t*)malloc(sizeof(node_t));
@@ -337,7 +339,7 @@ TEST(sortNode, test13)
 	node->firstname = firstname;
 	node->name = name;
 	node->fathername = fathername;
-	zero = sortNode(zero, node);
+	zero = sort_node(zero, node);
 	ASSERT_STRCASEEQ(zero->firstname, firstname);
 	ASSERT_STRCASEEQ(zero->name, name);
 	ASSERT_STRCASEEQ(zero->fathername, fathername);
@@ -347,7 +349,7 @@ TEST(sortNode, test13)
 	free(zero);
 	free(node);
 }
-TEST(sortNode,test14)
+TEST(sort_node,test14) // checking_sorting_by_names
 {
 	node_t* zero = (node_t*)malloc(sizeof(node_t));
 	node_t* node = (node_t*)malloc(sizeof(node_t));
@@ -368,7 +370,7 @@ TEST(sortNode,test14)
 	zero->firstname = strD;
 	zero->name = strE;
 	zero->fathername = strF;
-	zero = sortNode(zero, node);
+	zero = sort_node(zero, node);
 	ASSERT_STRCASEEQ(zero->firstname, strA);
 	ASSERT_STRCASEEQ(zero->name, strB);
 	ASSERT_STRCASEEQ(zero->fathername, strC);
@@ -378,7 +380,7 @@ TEST(sortNode,test14)
 	free(zero->next);
 	free(zero);
 }
-TEST(sortNode, test15) 
+TEST(sort_node, test15) //checking_sorting_by_firstnames
 {
 	node_t* zero = (node_t*)malloc(sizeof(node_t));
 	node_t* node = (node_t*)malloc(sizeof(node_t));
@@ -399,7 +401,7 @@ TEST(sortNode, test15)
 	zero->name = strB;
 	zero->fathername = strE;
 
-	zero = sortNode(zero, node);
+	zero = sort_node(zero, node);
 	ASSERT_STRCASEEQ(zero->firstname, strA);
 	ASSERT_STRCASEEQ(zero->name, strB);
 	ASSERT_STRCASEEQ(zero->fathername, strC);
@@ -409,7 +411,7 @@ TEST(sortNode, test15)
 	free(zero->next);
 	free(zero);
 }
-TEST(sortNode, test16) 
+TEST(sort_node, test16) //checking_sorting_by_fathernames
 {
 	node_t* zero = (node_t*)malloc(sizeof(node_t));
 	node_t* node = (node_t*)malloc(sizeof(node_t));
@@ -428,7 +430,7 @@ TEST(sortNode, test16)
 	zero->firstname = strA;
 	zero->name = strB;
 	zero->fathername = strD;
-	zero = sortNode(zero, node);
+	zero = sort_node(zero, node);
 	ASSERT_STRCASEEQ(zero->firstname, strA);
 	ASSERT_STRCASEEQ(zero->name, strB);
 	ASSERT_STRCASEEQ(zero->fathername, strC);
