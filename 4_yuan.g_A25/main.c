@@ -21,21 +21,21 @@ void main()
     }else
     {
         key = fscanf(input, "%s", string);
-        add_name_to_node(zero, string, "Fir");
+        add_name_to_node1(zero, string);
         fscanf(input, "%s", string);
-        add_name_to_node(zero, string, "N");
+        add_name_to_node2(zero, string);
         fscanf(input, "%s", string);
-        add_name_to_node(zero, string, "Fa");
+        add_name_to_node3(zero, string);
         key = fscanf(input, "%s", string);
         while (key != EOF)
         {
             new_node = create_new_node_t();
-            add_name_to_node(new_node, string, "Fir");
+            add_name_to_node1(new_node, string);
             fscanf(input, "%s", string);
-            add_name_to_node(new_node, string, "N");
+            add_name_to_node2(new_node, string);
             fscanf(input, "%s", string);
-            add_name_to_node(new_node, string, "Fa");
-            zero = sortNode(zero, new_node);
+            add_name_to_node3(new_node, string);
+            zero = sort_node(zero, new_node);
             key = fscanf(input, "%s", string);
         }
         print_list(zero);
