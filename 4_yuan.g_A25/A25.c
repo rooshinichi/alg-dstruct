@@ -31,47 +31,35 @@ void print_list(node_t* zero)  //打印整个链表
         zero = zero->next;
     }
 }
-void add_name_to_node(node_t* node, char* name_part, const char* key_word)  // Fir--firstname, N--name, Fa--farhername  往链表一节里面放入名字
+void add_name_to_node1(node_t* node, char* name_part)  // Fir--firstname, N--name, Fa--farhername  往链表一节里面放入名字
 {
-    if ((key_word != "Fir") && (key_word != "N") && (key_word != "Fa")) 
+    if (node == NULL)
     {
         perror("/nerror NO_004 ");
         exit(1);
     }
-    if (!node) 
+    node->firstname = (char*)malloc(strlen(name_part) + 1);
+    strcpy(node->firstname , name_part);
+}
+void add_name_to_node2(node_t* node, char* name_part)
+{
+    if (node == NULL)
     {
-        perror("/nerror NO_005 ");
+        perror("/nerror NO_004 ");
         exit(1);
     }
-    if (key_word == "Fir") 
+    node->name = (char*)malloc(strlen(name_part) + 1);
+    strcpy(node->name, name_part);
+}
+void add_name_to_node3(node_t* node, char* name_part)
+{
+    if (node == NULL)
     {
-        node->firstname = (char*)malloc(strlen(name_part) + 1);
-        if (!node->firstname) 
-        {
-            perror("/nerror NO_006 ");
-            exit(1);
-        }
-        strcpy(node->firstname, name_part);
+        perror("/nerror NO_004 ");
+        exit(1);
     }
-    if (key_word == "N") 
-    {
-        node->name = (char*)malloc(strlen(name_part) + 1);
-        if (!node->name) {
-            perror("/nerror NO_007 ");
-            exit(1);
-        }
-        strcpy(node->name, name_part);
-    }
-    if (key_word == "Fa") 
-    {
-        node->fathername = (char*)malloc(strlen(name_part) + 1);
-        if (!node->fathername) 
-        {
-            perror("/nerror NO_008 ");
-            exit(1);
-        }
-        strcpy(node->fathername, name_part);
-    }
+    node->fathername = (char*)malloc(strlen(name_part) + 1);
+    strcpy(node->fathername, name_part);
 }
 node_t* insert_front_of_the_node(node_t** node, node_t** node_in_list, node_t* head)   //
 { 
@@ -99,8 +87,7 @@ node_t* insert_front_of_the_node(node_t** node, node_t** node_in_list, node_t* h
     }
     return head;
 }
-int insert_the_position(char* node_name, char* nodeInListName, node_t** node, node_t** node_in_list, node_t** head) 
-{
+int insert_the_position(char* node_name, char* nodeInListName, node_t** node, node_t** node_in_list, node_t** head) {
     if (!node || !node_in_list || !head) 
     {
         perror("/nerror NO_010 ");
@@ -124,7 +111,7 @@ int insert_the_position(char* node_name, char* nodeInListName, node_t** node, no
         }
     }
 }
-node_t* sortNode(node_t* zero, node_t* node) 
+node_t* sort_node(node_t* zero, node_t* node) 
 {
     if (!zero || !node) 
     {
@@ -134,8 +121,7 @@ node_t* sortNode(node_t* zero, node_t* node)
     int temp1,temp2,temp3,key;  //temp1--firstname  //temp2--name  //temp3--fathername 
     node_t* head;
     head = zero;
-    while (1) 
-    {
+    while (1) {
         temp1 = strcmp(node->firstname, zero->firstname);
         temp2 = strcmp(node->name, zero->name);
         temp3 = strcmp(node->fathername, zero->fathername);
@@ -186,10 +172,8 @@ node_t* sortNode(node_t* zero, node_t* node)
 
 
 
-void compare_the_name(node_t* zero) 
-{
-    if (!zero) 
-    {
+void compare_the_name(node_t* zero) {
+    if (!zero) {
         perror("/nerror NO_012 ");
         exit(1);
     }
@@ -202,8 +186,7 @@ void compare_the_name(node_t* zero)
         temp1 = strncmp(firstname, zero->firstname, strlen(firstname));
         temp2 = strncmp(name, zero->name, strlen(name));
         temp3 = strncmp(fathername, zero->fathername, strlen(fathername));
-        if ((temp2 == 0) && (temp1 == 0) && (temp3 == 0)) 
-	{
+        if ((temp2 == 0) && (temp1 == 0) && (temp3 == 0)) {
             print_node(zero);
         }
         zero = zero->next;
@@ -212,10 +195,8 @@ void compare_the_name(node_t* zero)
 }
 
 
-void delete_list(node_t* head) 
-{
-    while (head != NULL) 
-    {
+void delete_list(node_t* head) {
+    while (head != NULL) {
         free(head->firstname);
         free(head->name);
         free(head->fathername);
