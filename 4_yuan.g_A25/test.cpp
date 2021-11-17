@@ -137,7 +137,7 @@ TEST(insert_the_position, test6 ) //check that SUCCESS is returned if node_name 
 	free(node_1);
 }
 
-TEST(insert_the_position, test7) //checking_that_ANOTHER_POS_WAS_FOUND_is_returned_if_nodeName_is_bigger_than_nodeInListName_and_nodeInList_next_is_NULL
+TEST(insert_the_position, test7) 
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -162,7 +162,7 @@ TEST(insert_the_position, test7) //checking_that_ANOTHER_POS_WAS_FOUND_is_return
 	free(node_1);
 	free(node_2);
 }
-TEST(insert_the_position,teat8 ) //checking_that_ANOTHER_POS_WAS_FOUND_is_returned_if_nodeName_is_equal_to_nodeInListName_and_nodeInList_next_is_NULL
+TEST(insert_the_position,teat8 )
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -187,7 +187,7 @@ TEST(insert_the_position,teat8 ) //checking_that_ANOTHER_POS_WAS_FOUND_is_return
 	free(node_2);
 }
 
-TEST(insert_the_position,teat9 ) //checking_that_POS_WAS_NOT_FOUND_is_returned_if_nodeName_is_bigger_than_nodeInListName_and_nodeInList_next_is_not_NULL
+TEST(insert_the_position,teat9 )
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -213,7 +213,7 @@ TEST(insert_the_position,teat9 ) //checking_that_POS_WAS_NOT_FOUND_is_returned_i
 	free(node_1);
 	free(p);
 }
-TEST(insert_the_position, teat10) //checking_that_POS_WAS_NOT_FOUND_is_returned_if_nodeName_is_equal_to_nodeInListName_and_nodeInList_next_is_not_NULL
+TEST(insert_the_position, teat10) 
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -238,7 +238,7 @@ TEST(insert_the_position, teat10) //checking_that_POS_WAS_NOT_FOUND_is_returned_
 	free(node_1);
 	free(p);
 }
-TEST(insert_the_position, teat11) //checking_that_nodeInList_points_to_next_node_if_nodeName_is_bigger_than_nodeInListName_and_nodeInList_next_is_not_NULL
+TEST(insert_the_position, teat11)
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -280,7 +280,7 @@ TEST(insert_the_position, teat11) //checking_that_nodeInList_points_to_next_node
 	free(tmp2);
 	free(tmp3);
 }
-TEST(insert_the_position,teat12) // checking_that_nodeInList_points_to_next_node_if_nodeName_is_equal_to_nodeInListName_and_nodeInList_next_is_not_NULL
+TEST(insert_the_position,teat12) 
 {
 	node_t* node_1 = (node_t*)malloc(sizeof(node_t));
 	node_t* node_2 = (node_t*)malloc(sizeof(node_t));
@@ -321,7 +321,7 @@ TEST(insert_the_position,teat12) // checking_that_nodeInList_points_to_next_node
 	free(tmp2);
 	free(tmp3);
 }
-TEST(sort_node, test13) //checking_node_addition_if_data_root_is_equal_to_data_node
+TEST(sort_node, test13) 
 {
 	node_t* zero = (node_t*)malloc(sizeof(node_t));
 	node_t* node = (node_t*)malloc(sizeof(node_t));
@@ -349,7 +349,7 @@ TEST(sort_node, test13) //checking_node_addition_if_data_root_is_equal_to_data_n
 	free(zero);
 	free(node);
 }
-TEST(sort_node,test14) // checking_sorting_by_names
+TEST(sort_node,test14) 
 {
 	node_t* zero = (node_t*)malloc(sizeof(node_t));
 	node_t* node = (node_t*)malloc(sizeof(node_t));
@@ -380,7 +380,7 @@ TEST(sort_node,test14) // checking_sorting_by_names
 	free(zero->next);
 	free(zero);
 }
-TEST(sort_node, test15) //checking_sorting_by_firstnames
+TEST(sort_node, test15)
 {
 	node_t* zero = (node_t*)malloc(sizeof(node_t));
 	node_t* node = (node_t*)malloc(sizeof(node_t));
@@ -411,7 +411,7 @@ TEST(sort_node, test15) //checking_sorting_by_firstnames
 	free(zero->next);
 	free(zero);
 }
-TEST(sort_node, test16) //checking_sorting_by_fathernames
+TEST(sort_node, test16) 
 {
 	node_t* zero = (node_t*)malloc(sizeof(node_t));
 	node_t* node = (node_t*)malloc(sizeof(node_t));
