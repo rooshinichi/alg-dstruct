@@ -31,7 +31,7 @@ void print_list(node_t* zero)  //打印整个链表
         zero = zero->next;
     }
 }
-void add_name_to_node1(node_t* node, char* name_part)  // Fir--firstname, N--name, Fa--farhername  往链表一节里面放入名字
+void add_name_to_node1(node_t* node, char* name_part)  //   往链表一节里面放入名字fristname
 {
     if (node == NULL)
     {
@@ -41,17 +41,17 @@ void add_name_to_node1(node_t* node, char* name_part)  // Fir--firstname, N--nam
     node->firstname = (char*)malloc(strlen(name_part) + 1);
     strcpy(node->firstname , name_part);
 }
-void add_name_to_node2(node_t* node, char* name_part)
+void add_name_to_node2(node_t* node, char* name_part)//往链表一节里面放入名字name
 {
     if (node == NULL)
     {
         perror("/nerror NO_004 ");
         exit(1);
     }
-    node->name = (char*)malloc(strlen(name_part) + 1);
+    node->name = (char*)malloc(strlen(name_part) + 1); 
     strcpy(node->name, name_part);
 }
-void add_name_to_node3(node_t* node, char* name_part)
+void add_name_to_node3(node_t* node, char* name_part)//往链表一节里面放入名字fathername
 {
     if (node == NULL)
     {
@@ -87,13 +87,13 @@ node_t* insert_front_of_the_node(node_t** node, node_t** node_in_list, node_t* h
     }
     return head;
 }
-int insert_the_position(char* node_name, char* nodeInListName, node_t** node, node_t** node_in_list, node_t** head) {
+int insert_the_position(char* node_name, char* node_in_list_name, node_t** node, node_t** node_in_list, node_t** head) {
     if (!node || !node_in_list || !head) 
     {
         perror("/nerror NO_010 ");
         exit(1);
     }
-    if (strcmp(node_name, nodeInListName) < 0) 
+    if (strcmp(node_name, node_in_list_name) < 0) 
     {
         *head = insert_front_of_the_node(node, node_in_list, *head);
         return SUCCESS;//position was found
