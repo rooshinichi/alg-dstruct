@@ -15,14 +15,14 @@ extern "C" {
 
 #pragma warning (disable:4996)
 
-#define ITERATIONS 1000
-#define MAX_SIZE 100
+#define unm_of_iterations 1000
+#define max_size 100
 
 typedef struct descriptor_t {
 	int size;
 	struct descriptor_t* next;
 	struct descriptor_t* prev;
-	int isFree;   // 1 - free, 0 - busy
+	int key;   // 1 - free, 0 - busy
 } descriptor_t;
 
 
