@@ -39,6 +39,12 @@ void add_name_to_node1(node_t* node, char* name_part)  //   往链表一节里�
         exit(1);
     }
     node->firstname = (char*)malloc(strlen(name_part) + 1);
+    if (node->firstname == NULL)
+    {
+        perror("/nerror NO_044 ");
+        exit(1);
+    }
+
     strcpy(node->firstname , name_part);
 }
 void add_name_to_node2(node_t* node, char* name_part)//往链表一节里面放入名字name
@@ -46,9 +52,15 @@ void add_name_to_node2(node_t* node, char* name_part)//往链表一节里面放�
     if (node == NULL)
     {
         perror("/nerror NO_004 ");
+
         exit(1);
     }
     node->name = (char*)malloc(strlen(name_part) + 1); 
+    if (node->name == NULL)
+    {
+        perror("/nerror NO_044 ");
+        exit(1);
+    }
     strcpy(node->name, name_part);
 }
 void add_name_to_node3(node_t* node, char* name_part)//往链表一节里面放入名字fathername
@@ -59,6 +71,11 @@ void add_name_to_node3(node_t* node, char* name_part)//往链表一节里面放�
         exit(1);
     }
     node->fathername = (char*)malloc(strlen(name_part) + 1);
+    if (node->fathername == NULL)
+    {
+        perror("/nerror NO_044 ");
+        exit(1);
+    }
     strcpy(node->fathername, name_part);
 }
 node_t* insert_front_of_the_node(node_t** node, node_t** node_in_list, node_t* head)   //
