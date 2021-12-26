@@ -4,7 +4,7 @@ int main(void)
 {
 	tree_t* tree = example_min_tree();
 	print_tree(tree, 0);
-	printf("\n\n");
+	printf("\n--------------------------------------------\nmin tree:\n");
 	min_tree(tree);
 	print_tree(tree, 0);
 
