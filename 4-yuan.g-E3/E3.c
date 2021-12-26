@@ -8,9 +8,10 @@ tree_t* create_bin_tree()
 		printf("Allocation memory error\n");
 		return NULL;
 	}
-	tree->left = NULL;
 	tree->right = NULL;
+	tree->left = NULL;
 	tree->key = NONE;
+	
 	return tree;
 }
 
@@ -30,11 +31,17 @@ void print_tree(tree_t* tree, int level)
 	{
 		print_tree(tree->left, level + 1);
 		for (int i = 0; i < level; i++)
+		{
 			printf("    ");
+		}
 		if (tree->key == NONE)
+		{
 			printf("*\n");
+		}
 		else
+		{
 			printf("%d\n", tree->key);
+		}
 		print_tree(tree->right, level + 1);
 
 	}
@@ -84,7 +91,7 @@ tree_t* example_min_tree(void)
 
 void min_tree(tree_t* tree)
 {
-	if ((tree->left != NULL) && (tree->right != NULL))
+	if ((NULL != tree->left) && (NULL != tree->right))
 	{
 		min_tree(tree->left);
 		min_tree(tree->right);
@@ -99,7 +106,7 @@ void min_tree(tree_t* tree)
 	}
 	else
 	{
-		if (tree->left != NULL)
+		if (NULL != tree->left)
 		{
 			min_tree(tree->left);
 			if (tree->left->key > NONE)
